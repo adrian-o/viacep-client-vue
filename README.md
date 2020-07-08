@@ -22,3 +22,7 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Referências do que usamos em live
+- https://materializecss.com/
+- https://material.io/resources/icons/?style=baseline
