@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Cep msg="Welcome to mycep"/>
+    <Cep />
   </div>
 </template>
 
