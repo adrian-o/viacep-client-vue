@@ -3,6 +3,10 @@
     <div class="col s12">
       <div class="row">
         
+        <div class="input-field col s12" v-if="err">
+          <p>{{ err }}</p>
+        </div>
+
         <!-- NOME -->
         <div class="input-field col s12">
           <input v-model="nome" placeholder="Solicitante" id="nome" type="text" class="validate">
@@ -49,8 +53,7 @@
 </template>
 
 <script>
-import axios from 'axios'
-//import viacepclient from '../actions/viacep'
+import viacep from '../actions/viacep'
 
 export default {
   name: 'Cep',
@@ -59,6 +62,7 @@ export default {
       cep: '', 
       nome: '',
       resp: '',
+      err: '',
       list: []
     }
   },
@@ -67,10 +71,10 @@ export default {
   },
   methods: {
     async enviaCep() {
-      this.resp = await axios.post('http://localhost:8080/livrese/cep/endereco', {nome:this.nome, cep:this.cep});
-      //console.log(viacepclient)
-      //this.resp = viacepclient.search({nome:this.nome, cep:this.cep});
-      this.list.push(this.resp.data);
+      this.resp = await viacep.search({nome:this.nome, cep:this.cep})
+                          .then(response => {this.resp = response.data})
+                          .catch(error => {this.err = error.message})
+      this.list.push(this.resp.data)
     },
     formatCep() {
       this.cep = this.cep.replace(/\D/g,'')
