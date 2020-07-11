@@ -2,12 +2,11 @@ import axios from 'axios'
 
 export default {
     async search (parameters = {}) {
-        return await axios.post('http://localhost:8080/livrese/cep/endereco', parameters)
-                        .then(response => ({
-                            data: response.data
-                        }))
-                        .catch(() => {
-                            throw new Error('Falha ao consultar o CEP')
-                        })
+        const resp = await axios.post('http://localhost:8080/viacep-cli/cep/endereco', parameters)
+            .then(response => response )
+            .catch(() => {throw new Error('Falha ao consultar o CEP')})
+        console.log(resp)
+        return resp
+                        
     }
 }

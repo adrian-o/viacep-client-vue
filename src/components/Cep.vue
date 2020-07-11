@@ -72,9 +72,9 @@ export default {
   methods: {
     async enviaCep() {
       this.resp = await viacep.search({nome:this.nome, cep:this.cep})
-                          .then(response => {this.resp = response.data})
+                          .then(response => { this.resp = response.endereco })
                           .catch(error => {this.err = error.message})
-      this.list.push(this.resp.data)
+      this.list.push(this.resp)
     },
     formatCep() {
       this.cep = this.cep.replace(/\D/g,'')
