@@ -2,7 +2,7 @@
   <div class="hello">
     <div class="col s12">
       <div class="row">
-        
+
         <div class="input-field col s12" v-if="err">
           <p>{{ err }}</p>
         </div>
@@ -12,8 +12,8 @@
           <input v-model="nome" placeholder="Solicitante" id="nome" type="text" class="validate">
           <label for="nome">Nome</label>
         </div>
-        
-        
+
+
         <!-- CEP -->
         <div class="input-field col s12">
           <input v-model="cep" @input="formatCep(cep)" placeholder="CEP" id="cep" type="text" class="validate">
@@ -22,7 +22,7 @@
 
 
         <!--button v-on:click="envia" /-->
-        <button @click="enviaCep" class="btn waves-effect waves-light" 
+        <button @click="enviaCep" class="btn waves-effect waves-light"
                 type="submit" name="action" :disabled="!cep || !nome">
           Consultar
           <i class="material-icons right">send</i>
@@ -59,7 +59,7 @@ export default {
   name: 'Cep',
   data() {
     return {
-      cep: '', 
+      cep: '',
       nome: '',
       resp: '',
       err: '',
@@ -71,10 +71,9 @@ export default {
   },
   methods: {
     async enviaCep() {
-      this.resp = await viacep.search({nome:this.nome, cep:this.cep})
-                          .then(response => { this.resp = response.endereco })
-                          .catch(error => {this.err = error.message})
-      this.list.push(this.resp)
+      await viacep.search({nome:this.nome, cep:this.cep})
+              .then(resp => { this.list.push(resp.endereco)})
+              .catch(error => {this.err = error.message})
     },
     formatCep() {
       this.cep = this.cep.replace(/\D/g,'')
